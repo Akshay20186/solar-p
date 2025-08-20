@@ -1,14 +1,26 @@
 const pool = require('../config/db');
 
-exports.getAllCP = async (req, res) => {
-    try {
-        const [rows] = await db.query("SELECT * FROM cp"); // no callback
-        res.json(rows);
-    } catch (err) {
-        console.error(err); // log the error
-        res.status(500).json({ error: err.message });
-    }
-};
+// exports.getAllCP = async (req, res) => {
+//     try {
+//         const [rows] = await db.query("SELECT * FROM cp"); // no callback
+//         res.json(rows);
+//     } catch (err) {
+//         console.error(err); // log the error
+//         res.status(500).json({ error: err.message });
+//     }
+// };
+
+
+
+router.get('/', (req, res) => {
+    db.query("SELECT * FROM cp", (err, results) => {
+        if (err) {
+            console.error("❌ Error in /api/cp:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
 
 exports.createCP = async (req, res) => {
     try {
