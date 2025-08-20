@@ -2,9 +2,9 @@ services:
   - type: web
     name: solar
     env: node
-    plan: free
     buildCommand: "npm install"
     startCommand: "node server.js"
+    plan: free
     envVars:
       - key: DB_HOST
         fromService:
@@ -22,5 +22,5 @@ services:
   - type: pserv
     name: mysql-service
     env: docker
-    plan: free
     dockerfilePath: ./mysql-docker/Dockerfile
+    plan: free
