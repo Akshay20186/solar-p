@@ -46,9 +46,14 @@ app.use('/api/contractual', contractualRoutes);
 console.log("inspectionRoutes:", inspectionRoutes);
 app.use('/api/inspection', inspectionRoutes);
 
+
 // Static files (uploads folder)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+});
+
