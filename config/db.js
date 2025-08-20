@@ -14,3 +14,9 @@ conn.connect((err) => {
   console.log('Connected successfully!');
   conn.end();
 });
+
+
+conn.query('SHOW TABLES', (err, results) => {
+  if (err) throw err;
+  console.log(results);
+});
