@@ -15,8 +15,3 @@ conn.connect((err) => {
   conn.end();
 });
 
-
-conn.query('SHOW TABLES', (err, results) => {
-  if (err) throw err;
-  console.log(results);
-});
