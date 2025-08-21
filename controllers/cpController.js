@@ -1,27 +1,17 @@
-const pool = require('../config/db');
+const db = require('../config/db');
 
-// exports.getAllCP = async (req, res) => {
-//     try {
-//         const [rows] = await db.query("SELECT * FROM cp"); // no callback
-//         res.json(rows);
-//     } catch (err) {
-//         console.error(err); // log the error
-//         res.status(500).json({ error: err.message });
-//     }
-// };
+// Get all CPs
+exports.getAllCP = async (req, res) => {
+    try {
+        const [rows] = await db.query("SELECT * FROM cp");
+        res.json(rows);
+    } catch (err) {
+        console.error("❌ getAllCP Error:", err);
+        res.status(500).json({ error: err.message });
+    }
+};
 
-
-
-router.get('/', (req, res) => {
-    db.query("SELECT * FROM cp", (err, results) => {
-        if (err) {
-            console.error("❌ Error in /api/cp:", err);
-            return res.status(500).json({ error: err.message });
-        }
-        res.json(results);
-    });
-});
-
+// Create new CP
 exports.createCP = async (req, res) => {
     try {
         const { name } = req.body;
@@ -30,11 +20,12 @@ exports.createCP = async (req, res) => {
         const [result] = await db.query("INSERT INTO cp (name) VALUES (?)", [name]);
         res.json({ id: result.insertId, name });
     } catch (err) {
-        console.error(err);
+        console.error("❌ createCP Error:", err);
         res.status(500).json({ error: err.message });
     }
-}; const db = require('../config/db');
+};
 
+// Get full hierarchy
 exports.getFullHierarchy = async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -51,8 +42,10 @@ exports.getFullHierarchy = async (req, res) => {
 
         res.json(rows);
     } catch (error) {
-        console.error("❌ SQL Error:", error.sqlMessage || error.message);
-        res.status(500).json({ error: "Database query failed", details: error.sqlMessage || error.message });
+        console.error("❌ getFullHierarchy SQL Error:", error.sqlMessage || error.message);
+        res.status(500).json({
+            error: "Database query failed",
+            details: error.sqlMessage || error.message
+        });
     }
 };
-
